@@ -1,3 +1,19 @@
+/*
+Copyright 2015 Udey Rishi
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 #include "Process.h"
 #include "Logging.h"
 #include "Utils.h"
@@ -71,7 +87,7 @@ void processDestructor(Process* this)
 
 void destroyProcessArray(Process** array, int count)
 {
-    if (array == NULL) 
+    if (array == NULL)
     {
         return;
     }
@@ -94,11 +110,11 @@ Process** searchRunningProcesses(int* processesFound, const char* processName, b
 {
     int i = 0;
     LogReport report;
-    
+
     char* command = stringJoin("ps -u | grep ", processName);
     char** lines = getOutputFromProgram(command, &i, &report);
     free(command);
-    
+
     if (lines == NULL)
     {
         // LogReport has been filled with some error

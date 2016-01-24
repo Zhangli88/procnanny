@@ -1,3 +1,19 @@
+/*
+Copyright 2015 Udey Rishi
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 #include "ProcessManager.h"
 #include "Logging.h"
 #include "Utils.h"
@@ -61,7 +77,7 @@ void setupMonitoring(bool isRetry, char* processName, unsigned long int duration
                 saveLogReport(report);
                 free(report.message);
             }
-            
+
             return;
         }
         exit(-1);
@@ -74,7 +90,7 @@ void setupMonitoring(bool isRetry, char* processName, unsigned long int duration
 
         if (p -> pid == getpid())
         {
-            // If procnannys were killed in the beginning, but a new one was started in between and the user expects to track that. 
+            // If procnannys were killed in the beginning, but a new one was started in between and the user expects to track that.
             // Should never happen/be done.
             LogReport report;
             report.message = "Config file had procnanny as one of the entries. It will be ignored if no other procnanny is found.";
@@ -148,7 +164,7 @@ void setupMonitoring(bool isRetry, char* processName, unsigned long int duration
                         targetPid = message.targetPid;
                         duration = message.monitorDuration;
                     }
-                    
+
                     break;
 
                 default:
@@ -251,7 +267,7 @@ bool killOtherProcNannysPrivate(const char* programName)
             report.type = INFO;
             saveLogReport(report);
             free(report.message);
-            
+
             if(!killProcess(*p))
             {
                 report.message = stringNumberJoin("Failed to kill another procnanny. PID: ", (int)p->pid);
@@ -316,7 +332,7 @@ int monitor(int refreshRate, int argc, char** argv)
 
     root = constuctorRegisterEntry((pid_t)0, NULL, NULL);
     RegisterEntry* tail = root;
-    
+
     int killCount = 0;
     rereadConfig(argc, argv);
     bool isRetry = false;
